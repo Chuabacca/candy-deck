@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Candy Deck</title>
+</head>
+<body>
+<style>
+  body {
+    margin: 0;
+  }
+  #background {
+    background: url(images/candyland-background.jpg);
+    background-size: cover;
+    position:fixed;
+    height: 100%;
+    width: 100%;
+  }
+  #card {
+    background: #F7F7F7;
+    border-radius: 1rem;
+    -moz-box-shadow:    2px 2px 15px #444;
+    -webkit-box-shadow: 2px 2px 15px #444;
+    box-shadow:         2px 2px 15px #444;
+    margin: 15% auto 0 auto;
+    height: 30rem;
+    width: 20rem;
+  }
+  .display {
+    border-radius: .5rem;
+    -moz-box-shadow:    0px 0px 15px #EEE;
+    -webkit-box-shadow: 0px 0px 15px #EEE;
+    box-shadow:         0px 0px 15px #EEE;
+    margin: 1rem auto;
+    height: 10rem;
+    width: 10rem;
+  }
+  .single {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  .double {
+    position: relative;
+    top: 50%;
+    transform: translateY(-105%);
+  }
+  .red {
+    background: #da5b48;
+  }
+  .orange {
+    background: #e49e52;
+  }
+  .yellow {
+    background: #f8d846;
+  }
+  .green {
+    background: #6fba6e;
+  }
+  .blue {
+    background: #54a6d8;
+  }
+  .purple {
+    background: #a05ba2;
+  }
+  .plumpy {
+    background: url(images/plumpy.jpg);
+    background-size: cover;
+  }
+  .mint {
+    background: url(images/mr-mint.jpg);
+    background-size: cover;
+  }
+  .jolly {
+    background: url(images/jolly.jpg);
+    background-size: cover;
+  }
+  .nutt {
+    background: url(images/grandma-nut.jpg);
+    background-size: cover;
+  }
+  .lolly {
+    background: url(images/princess-lolly.jpg);
+    background-size: cover;
+  }
+  .frostine {
+    background: url(images/queen-frostine.jpg);
+    background-size: cover;
+  }
+  .hide {
+    display: none !important;
+  }
+
+</style>
+
+<div id="background">
+  <div id="card">
+    <div id="fieldOne" class="hide"></div>
+    <div id="fieldTwo" class="hide"></div>
+  </div>
+</div>
+
+<script>
+// Define elements
+const card = document.getElementById('card');
+const fieldOne = document.getElementById('fieldOne');
+const fieldTwo = document.getElementById('fieldTwo');
+
+// Create a sleep timer
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+// Get a new card
+function drawCard() {
+  let i = 1;
+  let delay = 50;
+  async function roulette() {
+    let newCard = Math.floor((Math.random() * 64) + 1);
+    displayCard(newCard);
+    await sleep(delay);
+    i++;
+    delay *= 1.1;
+    if (i < 15) {
+      roulette();
+    }
+  }
+  roulette();
+}
+
+// Display the selected card
+function displayCard(newCard) {
+  if (newCard >= 1 && newCard <= 6) {
+    fieldOne.className = 'display red single'; 
+    fieldTwo.className = 'hide'; 
+  } else if (newCard >= 7 && newCard <= 10) {
+    fieldOne.className = 'display red double'; 
+    fieldTwo.className = 'display red double'; 
+  } else if (newCard >= 11 && newCard <= 16) {
+    fieldOne.className = 'display orange single'; 
+    fieldTwo.className = 'hide'; 
+  } else if (newCard >= 17 && newCard <= 19) {
+    fieldOne.className = 'display orange double'; 
+    fieldTwo.className = 'display orange double'; 
+  } else if (newCard >= 20 && newCard <= 25) {
+    fieldOne.className = 'display yellow single'; 
+    fieldTwo.className = 'hide'; 
+  } else if (newCard >= 26 && newCard <= 29) {
+    fieldOne.className = 'display yellow double'; 
+    fieldTwo.className = 'display yellow double'; 
+  } else if (newCard >= 30 && newCard <= 35) {
+    fieldOne.className = 'display green single'; 
+    fieldTwo.className = 'hide'; 
+  } else if (newCard >= 36 && newCard <= 38) {
+    fieldOne.className = 'display green double'; 
+    fieldTwo.className = 'display green double'; 
+  } else if (newCard >= 39 && newCard <= 44) {
+    fieldOne.className = 'display blue single'; 
+    fieldTwo.className = 'hide'; 
+  } else if (newCard >= 45 && newCard <= 48) {
+    fieldOne.className = 'display blue double'; 
+    fieldTwo.className = 'display blue double'; 
+  } else if (newCard >= 49 && newCard <= 54) {
+    fieldOne.className = 'display blue single'; 
+    fieldTwo.className = 'hide'; 
+  } else if (newCard >= 55 && newCard <= 58) {
+    fieldOne.className = 'display purple double'; 
+    fieldTwo.className = 'display purple double'; 
+  } else if (newCard == 59) {
+    fieldOne.className = 'display plumpy single'; 
+    fieldTwo.className = 'hide'; 
+  } else if (newCard == 60) {
+    fieldOne.className = 'display mint single'; 
+    fieldTwo.className = 'hide'; 
+  } else if (newCard == 61) {
+    fieldOne.className = 'display jolly single'; 
+    fieldTwo.className = 'hide'; 
+  } else if (newCard == 62) {
+    fieldOne.className = 'display nutt single'; 
+    fieldTwo.className = 'hide'; 
+  } else if (newCard == 63) {
+    fieldOne.className = 'display lolly single'; 
+    fieldTwo.className = 'hide'; 
+  } else {
+    fieldOne.className = 'display frostine single'; 
+    fieldTwo.className = 'hide'; 
+  }
+}
+
+// Listen for touch or click on the card
+card.addEventListener('click',drawCard);
+card.addEventListener('touchend',drawCard);
+</script>
+</body>
+</html>
